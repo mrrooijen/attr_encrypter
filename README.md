@@ -206,7 +206,7 @@ Released under the [MIT License] by [Michael van Rooijen].
 
 [Michael van Rooijen]: https://michael.vanrooijen.io
 [HireFire]: https://www.hirefire.io
-[RubyDoc]: https://rubydoc.info/gems/attr_encrypter
+[RubyDoc]: https://rubydoc.info/github/mrrooijen/attr_encrypter/master
 [MIT License]: https://github.com/mrrooijen/attr_encrypter/blob/master/LICENSE.txt
 [RbNaCl]: https://github.com/RubyCrypto/rbnacl
 [libsodium]: https://doc.libsodium.org/
