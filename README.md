@@ -27,7 +27,7 @@ gem "attr_encrypter", "~> 1"
 
 ### Example
 
-```rb
+```ruby
 class Account
   include AttrEncrypter::Accessors
 
@@ -54,7 +54,7 @@ end
 
 The `KEYCHAIN` environment variable must contain one or more keys. To generate a key, use the following function.
 
-```rb
+```ruby
 AttrEncrypter::Generator.generate_key
 ```
 
@@ -64,7 +64,7 @@ The key consists of two segments, `<version>.<secret>`. The initial key has a ve
 
 With the key in place you'll be able to store and retrieve data using the dynamically defined `token` accessor. Data assigned with `token=` will automatically be encrypted and stored with `token_digest=` in `@token_digest`.
 
-```rb
+```ruby
 account                 = Account.new
 account.token           = "my_secret_token"
 account.token_digest # => "1.yCZGH0QEk8+OPT0ad29wVmCkvr/7NXZjZtxu23v2j9HKfehndH0qv9MsF4ME\n"
@@ -78,7 +78,7 @@ The `@token_digest` value, like the keychain, also consists of two segments, `<v
 
 To clear the token, simply assign `nil` to it.
 
-```rb
+```ruby
 account.token           = nil
 account.token_digest # => nil
 ```
@@ -88,7 +88,7 @@ account.token_digest # => nil
 
 This is a general purpose library, and while its only hard dependency is rbnacl (libsodium), it was designed to work seamlessly with Active Record.
 
-```rb
+```ruby
 class User < ActiveRecord::Base
   include AttrEncrypter::Accessors
   attr_encrypter ENV["KEYCHAIN"], :token
@@ -106,19 +106,19 @@ First, add a second key to the keychain (`ENV["KEYCHAIN"]` in this case).
 
 To generate version 2 you can again use the following function, but this time using the version argument.
 
-```rb
+```ruby
 AttrEncrypter::Generator.generate_key 2 # or 3, 4, 5...
 ```
 
 The keychain format allows any kind of whitespace to delimit keys.
 
-```rb
+```ruby
 ENV["KEYCHAIN"] = "<version>.<secret> <version>.<secret> <version>.<secret>"
 ```
 
 For example.
 
-```rb
+```ruby
 ENV["KEYCHAIN"] = <<-EOS
   1.c1dbb0dd094d4f40916c9cc0d8c974151949f105c499366b2acd9da76de7e5e9
   2.3054563b2d80ae13c6e115405d6263e70be004f81eb3982f4a61ff9e9821e7d4
@@ -127,7 +127,7 @@ EOS
 
 Then simply reassign the token to re-encrypt the token with key version 2.
 
-```rb
+```ruby
 User.find_each do |user|
   user.token = user.token
   user.save
